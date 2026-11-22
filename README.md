@@ -1,5 +1,7 @@
 # Spin Wheel — Roda Pengacak
 
+**Demo live:** [spin-wheel di GitHub Pages](https://kirax-12.github.io/spin-wheel/)
+
 Roda pengacak nama berbasis web. Isi daftar nama, tekan **PUTAR!**, dan roda akan berhenti di satu nama secara acak. Cocok buat giveaway, arisan, urutan presentasi, atau mutusin siapa yang traktir kopi hari ini.
 
 Dibangun dengan HTML, CSS, dan JavaScript murni — tanpa framework, tanpa library, tanpa server. Cukup buka `index.html` di browser.
