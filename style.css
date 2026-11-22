@@ -1,0 +1,373 @@
+/* Spin Wheel — neo-brutalist cream style.
+   Design system saved in ~/workspace/custom-skills/remike-web-style/ */
+
+:root {
+  --bg: #fff8ec;
+  --ink: #111111;
+  --surface: #ffffff;
+  --yellow: #ffd23f;
+  --pink: #ff90e8;
+  --blue: #7ab8ff;
+  --green: #4ade80;
+  --orange: #ff7a45;
+  --muted: #55534e;
+  --border: 2px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Space Grotesk", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  line-height: 1.55;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+a { color: var(--ink); }
+:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- marquee tape ---------- */
+.tape {
+  background: var(--ink);
+  color: var(--bg);
+  transform: rotate(-0.6deg) scale(1.02);
+  overflow: hidden;
+  padding: 7px 0;
+  margin-top: 14px;
+}
+.tape-track {
+  display: flex;
+  width: max-content;
+  animation: tape-scroll 22s linear infinite;
+}
+.tape-track span {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@keyframes tape-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- header ---------- */
+.app-header, main, .app-footer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.app-header { padding-top: 42px; padding-bottom: 6px; }
+.app-header h1 {
+  margin: 0 0 6px;
+  font-size: clamp(2.6rem, 7vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+.hl {
+  background: var(--yellow);
+  border: var(--border);
+  border-radius: 10px;
+  padding: 0 12px;
+  display: inline-block;
+  transform: rotate(-1.2deg);
+  box-shadow: var(--shadow-sm);
+}
+.app-sub {
+  font-family: "Caveat", cursive;
+  font-size: 1.55rem;
+  color: var(--muted);
+  transform: rotate(-1deg);
+  display: inline-block;
+  margin: 0;
+}
+
+/* ---------- layout & panels ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 22px;
+  margin: 30px 0 26px;
+  align-items: start;
+}
+.panel {
+  background: var(--surface);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+.wheel-panel { transform: rotate(-0.4deg); text-align: center; }
+.names-panel { transform: rotate(0.4deg); }
+.panel h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- wheel ---------- */
+.wheel-wrap {
+  position: relative;
+  width: min(520px, 100%);
+  margin: 6px auto 20px;
+}
+#wheel {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pointer {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-top: 30px solid var(--ink);
+  z-index: 3;
+  filter: drop-shadow(2px 2px 0 rgba(17, 17, 17, 0.25));
+}
+.pointer::after {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 19px solid var(--pink);
+}
+.hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ---------- buttons ---------- */
+.btn, .btn-spin {
+  font-family: inherit;
+  font-weight: 700;
+  border: var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  min-height: 44px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  color: var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn:hover, .btn-spin:hover:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.btn:active, .btn-spin:active:not(:disabled) {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.btn-spin {
+  background: var(--pink);
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  padding: 14px 42px;
+  border-radius: 14px;
+}
+.btn-spin:disabled {
+  background: #e8e2d4;
+  color: var(--muted);
+  cursor: not-allowed;
+  box-shadow: var(--shadow-sm);
+}
+.btn-pink { background: var(--pink); }
+.btn-green { background: var(--green); }
+.btn-blue { background: var(--blue); }
+.btn-white { background: var(--surface); }
+
+.spin-hint {
+  margin: 12px 0 0;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- winner banner ---------- */
+.winner {
+  margin-top: 22px;
+  background: var(--yellow);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+  transform: rotate(-0.8deg);
+  animation: winner-pop 0.35s ease;
+}
+@keyframes winner-pop {
+  from { transform: rotate(-0.8deg) scale(0.92); }
+  to { transform: rotate(-0.8deg) scale(1); }
+}
+.winner-label {
+  margin: 0;
+  font-family: "Caveat", cursive;
+  font-size: 1.45rem;
+}
+.winner-name {
+  margin: 2px 0 14px;
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  overflow-wrap: break-word;
+}
+.winner-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- names panel ---------- */
+.names-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.badge {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--green);
+  border: var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+.names-sub {
+  font-family: "Caveat", cursive;
+  font-size: 1.3rem;
+  color: var(--muted);
+  margin: 2px 0 12px;
+  transform: rotate(-0.6deg);
+  display: inline-block;
+}
+#names-input {
+  width: 100%;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--bg);
+  border: var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  resize: vertical;
+  min-height: 220px;
+}
+#names-input:focus {
+  outline: 3px solid var(--pink);
+  outline-offset: 2px;
+}
+.warn {
+  margin: 10px 0 0;
+  background: var(--orange);
+  border: var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.names-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.tips {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tips li {
+  padding: 9px 0;
+  border-top: 2px dashed var(--ink);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.tips li:first-child { border-top: none; }
+
+/* ---------- confetti ---------- */
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* ---------- footer ---------- */
+.app-footer {
+  margin-top: 34px;
+  background: var(--ink);
+  color: var(--bg);
+  max-width: none;
+  padding: 22px 20px;
+  text-align: center;
+}
+.app-footer p {
+  margin: 0 auto;
+  max-width: 1080px;
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.82rem;
+}
+.app-footer a { color: var(--yellow); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .wheel-panel, .names-panel { transform: none; }
+  .hub { width: 70px; height: 70px; font-size: 0.62rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tape-track { animation: none; }
+  .winner { animation: none; }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spin Wheel — Roda Pengacak Nama · Remike Dev</title>
+<meta name="description" content="Roda pengacak nama buat milih siapa yang traktir kopi, pemenang giveaway, sampai urutan presentasi. Tinggal isi nama, putar, beres.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="tape" aria-hidden="true">
+  <div class="tape-track">
+    <span>PUTAR RODANYA · SIAPA YANG BERUNTUNG · GAK ADA CURANG · PUTAR RODANYA · SIAPA YANG BERUNTUNG · GAK ADA CURANG ·&nbsp;</span>
+    <span>PUTAR RODANYA · SIAPA YANG BERUNTUNG · GAK ADA CURANG · PUTAR RODANYA · SIAPA YANG BERUNTUNG · GAK ADA CURANG ·&nbsp;</span>
+  </div>
+</div>
+
+<header class="app-header">
+  <h1>Spin <span class="hl">Wheel</span></h1>
+  <p class="app-sub">roda pengacak buat mutusin hal-hal penting: siapa traktir kopi hari ini ↓</p>
+</header>
+
+<main>
+  <div class="layout">
+
+    <section class="panel wheel-panel" aria-label="Roda pengacak">
+      <div class="wheel-wrap">
+        <div class="pointer" aria-hidden="true"></div>
+        <canvas id="wheel" width="520" height="520"></canvas>
+        <div class="hub" aria-hidden="true">PUTAR<br>AKU</div>
+      </div>
+
+      <button class="btn-spin" id="btn-spin" type="button">PUTAR! →</button>
+      <p class="spin-hint" id="spin-hint" hidden>Isi minimal 2 nama dulu ya, baru rodanya bisa muter.</p>
+
+      <div class="winner" id="winner" hidden>
+        <p class="winner-label">yang kepilih adalah…</p>
+        <p class="winner-name" id="winner-name">—</p>
+        <div class="winner-actions">
+          <button class="btn btn-pink" id="btn-remove-winner" type="button">Hapus Pemenang</button>
+          <button class="btn btn-green" id="btn-spin-again" type="button">Putar Lagi →</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel names-panel" aria-label="Daftar nama">
+      <div class="names-head">
+        <h2>Daftar Nama</h2>
+        <span class="badge" id="name-count">0 nama</span>
+      </div>
+      <p class="names-sub">satu nama per baris, rodanya langsung ngikutin ↓</p>
+      <label class="sr-only" for="names-input">Daftar nama, satu per baris</label>
+      <textarea id="names-input" rows="12" spellcheck="false">Andi
+Budi
+Citra
+Dewi
+Eko
+Fitri
+Gilang
+Hana</textarea>
+      <p class="warn" id="names-warn" hidden></p>
+      <div class="names-actions">
+        <button class="btn btn-blue" id="btn-shuffle" type="button">Acak Urutan</button>
+        <button class="btn btn-white" id="btn-reset" type="button">Balikin Contoh</button>
+      </div>
+      <ul class="tips">
+        <li>Maksimal 24 nama biar tulisannya masih kebaca di roda.</li>
+        <li>Habis ada yang menang, hapus namanya biar gak kepilih dua kali.</li>
+        <li>Cocok buat giveaway, arisan, urutan presentasi, atau milih siapa yang bayar parkir.</li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<footer class="app-footer">
+  <p>Dibuat oleh <a href="https://github.com/kirax-12" target="_blank" rel="noopener">Remike Dev</a> · HTML, CSS, dan JavaScript murni · Hasil putaran 100% acak, jangan salahkan rodanya</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
